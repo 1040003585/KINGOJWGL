@@ -1,0 +1,19 @@
+“/Jwweb”应用程序中的服务器错误。
+服务器太忙
+说明: 执行当前 Web 请求期间，出现未处理的异常。请检查堆栈跟踪信息，以了解有关该错误以及代码中导致错误的出处的详细信息。
+
+异常详细信息: System.Web.HttpException: 服务器太忙
+
+源错误:
+
+执行当前 Web 请求期间生成了未处理的异常。可以使用下面的异常堆栈跟踪信息确定有关异常原因和发生位置的信息。
+
+堆栈跟踪:
+
+
+[HttpException (0x80004005): 服务器太忙]
+   System.Web.HttpRuntime.RejectRequestInternal(HttpWorkerRequest wr) +147
+
+
+版本信息: Microsoft .NET Framework 版本:1.1.4322.2512; ASP.NET 版本:1.1.4322.2515 
+
